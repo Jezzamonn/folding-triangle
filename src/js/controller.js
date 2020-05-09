@@ -75,13 +75,14 @@ export default class Controller {
 
 		let startAngle = angle + (2 - 1 / 3) * Math.PI * easeInOut(this.animAmt);
 
-		const sideRatio = 3 / Math.sqrt(3);
+		const startRatio = 3 / Math.sqrt(3);
+		const ratio = slurp(startRatio, startRatio / 2, this.animAmt);
 
 		{
 			const sideAngle = startAngle - Math.PI / 2;
 
-			const dx = sideRatio * triSize * Math.cos(sideAngle);
-			const dy = sideRatio * triSize * Math.sin(sideAngle);
+			const dx = ratio * triSize * Math.cos(sideAngle);
+			const dy = ratio * triSize * Math.sin(sideAngle);
 
 			context.lineTo(x + dx, y + dy);
 		}
@@ -89,8 +90,8 @@ export default class Controller {
 		{
 			const sideAngle = startAngle - Math.PI * (1 / 2 + 1 / 3);
 
-			const dx = sideRatio * triSize * Math.cos(sideAngle);
-			const dy = sideRatio * triSize * Math.sin(sideAngle);
+			const dx = ratio * triSize * Math.cos(sideAngle);
+			const dy = ratio * triSize * Math.sin(sideAngle);
 
 			context.lineTo(x + dx, y + dy);
 		}
