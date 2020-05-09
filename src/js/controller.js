@@ -30,13 +30,13 @@ export default class Controller {
 		const halfRows = 2;
 		const halfCols = 2;
 		for (let row = -halfRows; row <= halfRows; row++) {
-			for (let col = -halfCols; col < halfCols; col++) {
-				const x = col * triSideLength;
-				const y = row * triSideLength;
+			for (let col = -halfCols; col <= halfCols; col++) {
+				const x = (col + (row % 2 == 0 ? 0 : 0.5)) * 3 * triSideLength;
+				const y = row * 2 * Math.sqrt(3) * triSideLength;
 
 				context.save();
 				context.translate(x, y);
-				this.drawSplittingTriangle(context, this.animAmt);
+				this.drawSplittingTriangle(context, 0);
 				context.restore();
 			}
 		}
