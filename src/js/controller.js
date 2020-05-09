@@ -34,9 +34,8 @@ export default class Controller {
 		context.fillStyle = 'white';
 
 		// draw the center hex
-		const numPoints = 6;
-		for (let i = 0; i < numPoints; i++) {
-			const amt = i / numPoints;
+		for (let i = 0; i < 6; i++) {
+			const amt = i / 6;
 			const angle = 2 * Math.PI * amt;
 
 			const x = triSize * Math.cos(angle);
@@ -52,8 +51,8 @@ export default class Controller {
 		context.closePath();
 
 		// sub triangles
-		for (let i = 0; i < numPoints; i++) {
-			const amt = i / numPoints;
+		for (let i = 0; i < 3; i++) {
+			const amt = i / 3;
 			const angle = 2 * Math.PI * amt;
 
 			const x = triSize * Math.cos(angle);
@@ -74,23 +73,20 @@ export default class Controller {
 
 		let startAngle = angle + (2 - 1 / 3) * Math.PI * spinAmt;
 
-		const startRatio = 2 / Math.sqrt(3);
-		const ratio = slurp(startRatio, startRatio / 2, spinAmt);
-
 		{
-			const sideAngle = startAngle - Math.PI / 2;
+			const sideAngle = startAngle - Math.PI / 3;
 
-			const dx = ratio * triSize * Math.cos(sideAngle);
-			const dy = ratio * triSize * Math.sin(sideAngle);
+			const dx = triSize * Math.cos(sideAngle);
+			const dy = triSize * Math.sin(sideAngle);
 
 			context.lineTo(x + dx, y + dy);
 		}
 
 		{
-			const sideAngle = startAngle - Math.PI * (1 / 2 + 1 / 3);
+			const sideAngle = startAngle - Math.PI * (1 / 3 + 1 / 3);
 
-			const dx = ratio * triSize * Math.cos(sideAngle);
-			const dy = ratio * triSize * Math.sin(sideAngle);
+			const dx = triSize * Math.cos(sideAngle);
+			const dy = triSize * Math.sin(sideAngle);
 
 			context.lineTo(x + dx, y + dy);
 		}
