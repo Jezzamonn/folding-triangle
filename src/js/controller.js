@@ -1,4 +1,4 @@
-import { easeInOut, experp, slurp } from './util';
+import { easeInOut, experp, slurp, divideInterval, clamp } from './util';
 
 const triSideLength = 50;
 
@@ -26,15 +26,13 @@ export default class Controller {
 	 */
 	render(context) {
 		// context.rotate(Math.PI / 2);
-		const localAnimAmt = (2 * this.animAmt) % 1;
-		const animState = Math.floor(2 * this.animAmt);
-		if (animState == 1) {
-			context.translate(
-				0,
-				-Math.sqrt(3) * triSideLength);
-		}
+		const localAnimAmt = (3 * this.animAmt) % 1;
+		const animState = Math.floor(3 * this.animAmt);
+		context.translate(0, -animState * Math.sqrt(3) * triSideLength);
 
-		const scale = slurp(1, 2, localAnimAmt);
+		const spinAnimAmt = clamp(divideInterval(localAnimAmt, 0, 0.5), 0, 1);
+		const scaleAnimAmt = clamp(divideInterval(localAnimAmt, 0.5, 1), 0, 1);
+		const scale = experp(1, 1.5, scaleAnimAmt);
 
 		const halfRows = 3;
 		const halfCols = 3;
@@ -48,7 +46,7 @@ export default class Controller {
 
 				context.scale(scale, scale);
 
-				this.drawSplittingTriangle(context, localAnimAmt);
+				this.drawSplittingTriangle(context, spinAnimAmt);
 				context.restore();
 			}
 		}
