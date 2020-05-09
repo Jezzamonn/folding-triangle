@@ -1,6 +1,6 @@
 import { easeInOut, experp, slurp } from './util';
 
-const triSize = 70;
+const triSize = 50;
 
 export default class Controller {
 
