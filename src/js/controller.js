@@ -1,3 +1,5 @@
+import { easeInOut } from './util';
+
 const triSize = 100;
 
 export default class Controller {
@@ -65,10 +67,12 @@ export default class Controller {
 		context.fillStyle = 'white';
 		context.moveTo(x, y);
 
+		let startAngle = angle + (2 - 1 / 3) * Math.PI * easeInOut(this.animAmt);
+
 		const sideRatio = 3 / Math.sqrt(3);
 
 		{
-			const sideAngle = angle - Math.PI / 2;
+			const sideAngle = startAngle - Math.PI / 2;
 
 			const dx = sideRatio * triSize * Math.cos(sideAngle);
 			const dy = sideRatio * triSize * Math.sin(sideAngle);
@@ -77,7 +81,7 @@ export default class Controller {
 		}
 
 		{
-			const sideAngle = angle - Math.PI * (1 / 2 + 1 / 3);
+			const sideAngle = startAngle - Math.PI * (1 / 2 + 1 / 3);
 
 			const dx = sideRatio * triSize * Math.cos(sideAngle);
 			const dy = sideRatio * triSize * Math.sin(sideAngle);
