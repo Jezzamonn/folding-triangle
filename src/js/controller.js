@@ -72,10 +72,12 @@ export default class Controller {
 	drawSubTriangle(context, x, y, angle) {
 		context.moveTo(x, y);
 
-		let startAngle = angle + (2 - 1 / 3) * Math.PI * easeInOut(this.animAmt);
+		const spinAmt = easeInOut(this.animAmt, 3);
+
+		let startAngle = angle + (2 - 1 / 3) * Math.PI * spinAmt;
 
 		const startRatio = 3 / Math.sqrt(3);
-		const ratio = slurp(startRatio, startRatio / 2, this.animAmt);
+		const ratio = slurp(startRatio, startRatio / 2, spinAmt);
 
 		{
 			const sideAngle = startAngle - Math.PI / 2;
