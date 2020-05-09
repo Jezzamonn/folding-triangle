@@ -1,6 +1,6 @@
 import { easeInOut, experp, slurp } from './util';
 
-const triSize = 70;
+const triSize = 50;
 
 export default class Controller {
 
@@ -27,15 +27,16 @@ export default class Controller {
 	render(context) {
 		context.rotate(Math.PI / 2);
 
-		const scale = experp(1, 2, this.animAmt);
+		const scale = experp(1, 4, this.animAmt);
 		context.scale(scale, scale);
-		context.rotate(slurp(0, Math.PI / 3, this.animAmt))
+		// context.rotate(slurp(0, Math.PI / 3, this.animAmt))
 
 		// draw the center triangle
 		const numPoints = 3;
 
 		context.beginPath();
 		context.fillStyle = 'white';
+
 		for (let i = 0; i < numPoints; i++) {
 			const amt = i / numPoints;
 			const angle = 2 * Math.PI * amt;
@@ -51,7 +52,6 @@ export default class Controller {
 			}
 		}
 		context.closePath();
-		context.fill();
 
 		// sub triangles
 		for (let i = 0; i < numPoints; i++) {
@@ -63,14 +63,13 @@ export default class Controller {
 
 			this.drawSubTriangle(context, x, y, angle);
 		}
+		context.fill();
 	}
 
 	/**
 	 * @param {!CanvasRenderingContext2D} context
 	 */
 	drawSubTriangle(context, x, y, angle) {
-		context.beginPath();
-		context.fillStyle = 'white';
 		context.moveTo(x, y);
 
 		let startAngle = angle + (2 - 1 / 3) * Math.PI * easeInOut(this.animAmt);
@@ -95,9 +94,7 @@ export default class Controller {
 
 			context.lineTo(x + dx, y + dy);
 		}
-
 		context.closePath();
-		context.fill();
 	}
 
 }
