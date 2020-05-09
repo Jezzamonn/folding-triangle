@@ -1,6 +1,6 @@
 import { easeInOut, experp, slurp } from './util';
 
-const triSize = 50;
+const triSideLength = 50;
 
 export default class Controller {
 
@@ -25,11 +25,24 @@ export default class Controller {
 	 * @param {!CanvasRenderingContext2D} context
 	 */
 	render(context) {
-		context.rotate(Math.PI / 2);
+		// context.rotate(Math.PI / 2);
 
-		const scale = experp(1, 4, this.animAmt);
-		context.scale(scale, scale);
+		const halfRows = 2;
+		const halfCols = 2;
+		for (let row = -halfRows; row <= halfRows; row++) {
+			for (let col = -halfCols; col < halfCols; col++) {
+				const x = col * triSideLength;
+				const y = row * triSideLength;
 
+				context.save();
+				context.translate(x, y);
+				this.drawSplittingTriangle(context, this.animAmt);
+				context.restore();
+			}
+		}
+	}
+
+	drawSplittingTriangle(context, animAmt) {
 		context.beginPath();
 		context.fillStyle = 'white';
 
@@ -38,8 +51,8 @@ export default class Controller {
 			const amt = i / 6;
 			const angle = 2 * Math.PI * amt;
 
-			const x = triSize * Math.cos(angle);
-			const y = triSize * Math.sin(angle);
+			const x = triSideLength * Math.cos(angle);
+			const y = triSideLength * Math.sin(angle);
 
 			if (i == 0) {
 				context.moveTo(x, y);
@@ -55,10 +68,10 @@ export default class Controller {
 			const amt = i / 3;
 			const angle = 2 * Math.PI * amt;
 
-			const x = triSize * Math.cos(angle);
-			const y = triSize * Math.sin(angle);
+			const x = triSideLength * Math.cos(angle);
+			const y = triSideLength * Math.sin(angle);
 
-			this.drawSubTriangle(context, x, y, angle);
+			this.drawSubTriangle(context, x, y, angle, animAmt);
 		}
 		context.fill();
 	}
@@ -66,18 +79,18 @@ export default class Controller {
 	/**
 	 * @param {!CanvasRenderingContext2D} context
 	 */
-	drawSubTriangle(context, x, y, angle) {
+	drawSubTriangle(context, x, y, angle, animAmt) {
 		context.moveTo(x, y);
 
-		const spinAmt = easeInOut(this.animAmt, 3);
+		const spinAmt = easeInOut(animAmt, 3);
 
 		let startAngle = angle + (2 - 1 / 3) * Math.PI * spinAmt;
 
 		{
 			const sideAngle = startAngle - Math.PI / 3;
 
-			const dx = triSize * Math.cos(sideAngle);
-			const dy = triSize * Math.sin(sideAngle);
+			const dx = triSideLength * Math.cos(sideAngle);
+			const dy = triSideLength * Math.sin(sideAngle);
 
 			context.lineTo(x + dx, y + dy);
 		}
@@ -85,8 +98,8 @@ export default class Controller {
 		{
 			const sideAngle = startAngle - Math.PI * (1 / 3 + 1 / 3);
 
-			const dx = triSize * Math.cos(sideAngle);
-			const dy = triSize * Math.sin(sideAngle);
+			const dx = triSideLength * Math.cos(sideAngle);
+			const dy = triSideLength * Math.sin(sideAngle);
 
 			context.lineTo(x + dx, y + dy);
 		}
