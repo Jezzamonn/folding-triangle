@@ -1,6 +1,6 @@
-import { easeInOut } from './util';
+import { easeInOut, experp, slurp } from './util';
 
-const triSize = 100;
+const triSize = 70;
 
 export default class Controller {
 
@@ -25,6 +25,10 @@ export default class Controller {
 	 * @param {!CanvasRenderingContext2D} context
 	 */
 	render(context) {
+		const scale = experp(1, 2, this.animAmt);
+		context.scale(scale, scale);
+		context.rotate(slurp(0, Math.PI / 3, this.animAmt))
+
 		// draw the center triangle
 		const numPoints = 3;
 
