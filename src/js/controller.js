@@ -29,14 +29,12 @@ export default class Controller {
 
 		const scale = experp(1, 4, this.animAmt);
 		context.scale(scale, scale);
-		// context.rotate(slurp(0, -2 * Math.PI / 3, this.animAmt))
-
-		// draw the center triangle
-		const numPoints = 3;
 
 		context.beginPath();
 		context.fillStyle = 'white';
 
+		// draw the center hex
+		const numPoints = 6;
 		for (let i = 0; i < numPoints; i++) {
 			const amt = i / numPoints;
 			const angle = 2 * Math.PI * amt;
@@ -76,7 +74,7 @@ export default class Controller {
 
 		let startAngle = angle + (2 - 1 / 3) * Math.PI * spinAmt;
 
-		const startRatio = 3 / Math.sqrt(3);
+		const startRatio = 2 / Math.sqrt(3);
 		const ratio = slurp(startRatio, startRatio / 2, spinAmt);
 
 		{
