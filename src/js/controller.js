@@ -29,7 +29,7 @@ export default class Controller {
 
 		const scale = experp(1, 4, this.animAmt);
 		context.scale(scale, scale);
-		context.rotate(slurp(0, -2 * Math.PI / 3, this.animAmt))
+		// context.rotate(slurp(0, -2 * Math.PI / 3, this.animAmt))
 
 		// draw the center triangle
 		const numPoints = 3;
