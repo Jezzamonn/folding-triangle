@@ -4,20 +4,20 @@ const triSideLength = 50;
 
 export default class Controller {
 
-    constructor() {
-        this.animAmt = 0;
-        this.period = 3;
-    }
+	constructor() {
+		this.animAmt = 0;
+		this.period = 10;
+	}
 
-    /**
-     * Simulate time passing.
-     *
-     * @param {number} dt Time since the last frame, in seconds 
-     */
-    update(dt) {
-        this.animAmt += dt / this.period;
-        this.animAmt %= 1;
-    }
+	/**
+	 * Simulate time passing.
+	 *
+	 * @param {number} dt Time since the last frame, in seconds 
+	 */
+	update(dt) {
+		this.animAmt += dt / this.period;
+		this.animAmt %= 1;
+	}
 
 	/**
 	 * Render the current state of the controller.
@@ -26,9 +26,18 @@ export default class Controller {
 	 */
 	render(context) {
 		// context.rotate(Math.PI / 2);
+		const localAnimAmt = (2 * this.animAmt) % 1;
+		const animState = Math.floor(2 * this.animAmt);
+		if (animState == 1) {
+			context.translate(
+				0,
+				-Math.sqrt(3) * triSideLength);
+		}
 
-		const halfRows = 2;
-		const halfCols = 2;
+		const scale = slurp(1, 2, localAnimAmt);
+
+		const halfRows = 3;
+		const halfCols = 3;
 		for (let row = -halfRows; row <= halfRows; row++) {
 			for (let col = -halfCols; col <= halfCols; col++) {
 				const x = (col + (row % 2 == 0 ? 0 : 0.5)) * 3 * triSideLength;
@@ -36,7 +45,10 @@ export default class Controller {
 
 				context.save();
 				context.translate(x, y);
-				this.drawSplittingTriangle(context, this.animAmt);
+
+				context.scale(scale, scale);
+
+				this.drawSplittingTriangle(context, localAnimAmt);
 				context.restore();
 			}
 		}
