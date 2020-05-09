@@ -10,7 +10,7 @@ import prettyMilliseconds from 'pretty-ms';
 function renderFrame(context, controller, width, height) {
     context.resetTransform();
     context.globalAlpha = 1;
-    context.fillStyle = 'white';
+    context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
 
     // Set origin to middle.
