@@ -30,9 +30,9 @@ export default class Controller {
 		const animState = Math.floor(3 * this.animAmt);
 		context.translate(0, -animState * Math.sqrt(3) * triSideLength);
 
-		const spinAnimAmt = clamp(divideInterval(localAnimAmt, 0, 0.5), 0, 1);
-		const scaleAnimAmt = clamp(divideInterval(localAnimAmt, 0.5, 1), 0, 1);
-		const scale = experp(1, 1.5, scaleAnimAmt);
+		const spinAnimAmt = clamp(divideInterval(localAnimAmt, 0, 0.6), 0, 1);
+		const scaleAnimAmt = clamp(divideInterval(localAnimAmt, 0.4, 1), 0, 1);
+		const scale = experp(1, 2, easeInOut(scaleAnimAmt, 3));
 
 		const halfRows = 3;
 		const halfCols = 3;
